@@ -4,7 +4,7 @@ HARP is a meta-strategy to improve several state-of-the-art network embedding al
 
 You can read the preprint of our paper on [Arxiv](https://arxiv.org/abs/1706.07845).
 
-This code run with Python 2.
+This is an extended version of the original HARP with some fixes: executable under Python3 with the latest version of the imported libraries (gensim, deepwalk) and refined arguments. The extension is made by Artem Lutov <artem@exascale.info>.
 
 # Installation
 
