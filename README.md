@@ -4,7 +4,7 @@ HARP is a meta-strategy to improve several state-of-the-art network embedding al
 
 You can read the preprint of our paper on [Arxiv](https://arxiv.org/abs/1706.07845).
 
-This is an extended version of the original HARP with some fixes: executable under Python3 with the latest version of the imported libraries (gensim, deepwalk) and refined arguments. The extension is made by Artem Lutov <artem@exascale.info>.
+This is an extended version of the original HARP with some fixes: executable under Python3 with the latest version of the imported libraries (gensim, deepwalk), refined arguments and refined magic-graph (to load correctly disconnected nodes from the MAT file). The extension is made by Artem Lutov <artem@exascale.info>.
 
 # Installation
 
@@ -13,8 +13,9 @@ The following Python packages are required to install HARP.
 [Magicgraph](https://github.com/phanein/magic-graph) is a library for processing graph data.
 To install, run the following commands:
 
-	git clone https://github.com/phanein/magic-graph.git
+	git clone https://github.com/eXascaleInfolab/magic-graph.git
 	cd magic-graph
+	# Optionally, install the library
 	python setup.py install
 
 [DeepWalk](https://github.com/eXascaleInfolab/deepwalk) is an embedding learning library for graphs.
@@ -22,6 +23,7 @@ To install, run the following commands:
 
 	git clone https://github.com/eXascaleInfolab/deepwalk.git
 	cd deepwalk
+	# Optionally, install the library
 	python setup.py install
 
 Then, install HARP and the other requirements:
@@ -29,6 +31,9 @@ Then, install HARP and the other requirements:
 	git clone https://github.com/GTmac/HARP.git
 	cd HARP
 	pip install -r requirements.txt
+	# Link the aforementioned libraries if they have not been installed
+	ln -sr ../deepwalk/deepwalk src/
+	ln -sr ../magic-graph/src/magicgraph src/
 
 # Usage
 To run HARP on the *CiteSeer* dataset using *LINE* as the underlying network embedding model, run the following command:
