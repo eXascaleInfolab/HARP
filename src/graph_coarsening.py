@@ -251,7 +251,7 @@ def external_ec_coarsening(graph, sfdp_path, coarsening_scheme=2):
 
     return recursive_graphs, recursive_merged_nodes
 
-def skipgram_coarsening_disconnected(graph, recursive_graphs=None, recursive_merged_nodes=None, workers=_WORKERS, output='tmpbuf', **kwargs):
+def skipgram_coarsening_disconnected(graph, recursive_graphs=None, recursive_merged_nodes=None, workers=_WORKERS, output='tmpbuf', rawids=False, **kwargs):
     print (kwargs)
     if graph.is_connected():
         print ('Connected graph.')
@@ -274,6 +274,7 @@ def skipgram_coarsening_disconnected(graph, recursive_graphs=None, recursive_mer
     coarsening_scheme = kwargs.get('coarsening_scheme', 2)
     sfdp_path = kwargs.get('sfdp_path', './bin/sfdp_osx')
     embeddings = np.ndarray(shape=(graph.number_of_nodes(), representation_size), dtype=np.float32)
+    iembs = 0
 
     for subgraph, reversed_mapping in zip(subgraphs, reversed_mappings):
         count += 1
@@ -337,8 +338,12 @@ def skipgram_coarsening_disconnected(graph, recursive_graphs=None, recursive_mer
                                         hs=0)
 
         for ind, vec in enumerate(gc_model[-1].wv.syn0):
-            real_ind = reversed_mapping[int(gc_model[-1].wv.index2word[ind])]
-            embeddings[real_ind] = vec
+            if rawids:
+                ie = iembs
+                iembs += 1
+            else:
+                ie = reversed_mapping[int(gc_model[-1].wv.index2word[ind])]
+            embeddings[ie] = vec
     return embeddings
 
 def gen_alpha(init_alpha, recursive_graphs, iter_counts):
