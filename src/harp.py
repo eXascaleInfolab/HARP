@@ -63,7 +63,7 @@ def main():
     outpbase = os.path.splitext(args.output)[0]
     if args.model == 'deepwalk':
         embeddings = graph_coarsening.skipgram_coarsening_disconnected(G,
-                workers=args.workers,output=outpbase,rawids=True,   # Retain contigious raw internal ids for the embeddings
+                workers=args.workers,output=outpbase,   # Retain contigious raw internal ids for the embeddings
 		scale=-1,iter_count=1,
                 sfdp_path=args.sfdp_path,
                 num_paths=args.number_walks,path_length=args.walk_length,
@@ -71,7 +71,7 @@ def main():
                 lr_scheme='default',alpha=0.025,min_alpha=0.001,sg=1,hs=1,coarsening_scheme=2, sample=0.1)
     elif args.model == 'node2vec':
         embeddings = graph_coarsening.skipgram_coarsening_disconnected(G,
-                workers=args.workers,output=outpbase,rawids=True,
+                workers=args.workers,output=outpbase,
                 scale=-1,iter_count=1,
                 sfdp_path=args.sfdp_path,
                 num_paths=args.number_walks,path_length=args.walk_length,
@@ -79,7 +79,7 @@ def main():
                 lr_scheme='default',alpha=0.025,min_alpha=0.001,sg=1,hs=0,coarsening_scheme=2, sample=0.1)
     elif args.model == 'line':
         embeddings = graph_coarsening.skipgram_coarsening_disconnected(G,
-                workers=args.workers,output=outpbase,rawids=True,
+                workers=args.workers,output=outpbase,
                 scale=1, iter_count=50,
                 sfdp_path=args.sfdp_path,
                 representation_size=args.representation_size,window_size=1,

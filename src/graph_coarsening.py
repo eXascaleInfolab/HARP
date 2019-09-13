@@ -31,6 +31,7 @@ class DoubleWeightedDiGraph(WeightedDiGraph):
         super(WeightedDiGraph, self).__init__(node_class=WeightedNode)
         self.weighted_nodes = magicgraph.WeightedNode()
         if init_graph is not None:
+            self.totnds = init_graph.totnds
             for node, adj_list in init_graph.adjacency_iter():
                 if hasattr(adj_list, 'weights'):
                     self[node].extend(adj_list, adj_list.weights)
@@ -273,7 +274,7 @@ def skipgram_coarsening_disconnected(graph, recursive_graphs=None, recursive_mer
     sample = kwargs.get('sample', 1e-3)
     coarsening_scheme = kwargs.get('coarsening_scheme', 2)
     sfdp_path = kwargs.get('sfdp_path', './bin/sfdp_osx')
-    embeddings = np.ndarray(shape=(graph.number_of_nodes(), representation_size), dtype=np.float32)
+    embeddings = np.ndarray(shape=(graph.totnds or graph.number_of_nodes(), representation_size), dtype=np.float32)
     iembs = 0
 
     for subgraph, reversed_mapping in zip(subgraphs, reversed_mappings):
